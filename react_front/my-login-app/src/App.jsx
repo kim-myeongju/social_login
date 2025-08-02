@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setUserFromToken } from "./store/userSlice";
 import Cookies from 'js-cookie';
+import OAuthRedirectSocialLoginPage from "./pages/OAuthRedirectSocialLoginPage";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/oauth2/redirect/:provider" element={<OAuthRedirectSocialLoginPage />} />
         </Routes>
       </div>
     </Router>

@@ -5,6 +5,8 @@ import com.sociallogin.dto.LoginResponseDTO;
 import com.sociallogin.dto.UserRequestDTO;
 import com.sociallogin.entity.User;
 import com.sociallogin.repository.UserRepository;
+import com.sociallogin.service.GoogleOAuthService;
+import com.sociallogin.service.KakaoOAuthService;
 import com.sociallogin.service.UserService;
 import com.sociallogin.util.JwtTokenProvider;
 import jakarta.servlet.http.Cookie;
@@ -16,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/auth")    // http://localhost:8080/api/auth/**
@@ -24,6 +28,8 @@ public class UserController {
     private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
+    private final KakaoOAuthService kakaoOAuthService;
+    private final GoogleOAuthService googleOAuthService;
 
     @PostMapping("/signup")
     public String signUp(@RequestBody UserRequestDTO userRequestDTO) {
@@ -97,5 +103,19 @@ public class UserController {
         response.addCookie(refreshCookie);
 
         return ResponseEntity.ok("로그아웃 성공");
+    }
+
+    @PostMapping("/kakao")
+    public ResponseEntity<?> kakaoLogin(@RequestBody Map<String, String> body, HttpServletResponse response) {
+        String code = body.get("code");
+        LoginResponseDTO tokens = kakaoOAuthService.kakaoLogin(code, response);
+        return ResponseEntity.ok(tokens);
+    }
+
+    @PostMapping("/google")
+    public ResponseEntity<?> googleLogin(@RequestBody Map<String, String> body, HttpServletResponse response) {
+        String code = body.get("code");
+        LoginResponseDTO tokens = googleOAuthService.googleLogin(code, response);
+        return ResponseEntity.ok(tokens);
     }
 }

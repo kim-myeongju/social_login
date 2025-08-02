@@ -22,4 +22,9 @@ public class User {
     @Column(length = 500)
     private String refreshToken;
 
+    public User(String username, String password, String roleUser) {
+        this.username = username;
+        this.role = roleUser;
+        this.password = password;
+    }
 }

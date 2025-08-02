@@ -105,3 +105,52 @@ body {
 .navbar-links .active {
   text-decoration: underline;
 }
+
+/* 소셜 로그인 섹션 */
+.social-login {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.social-login p {
+  margin-bottom: 1rem;
+  color: white;
+  font-size: 0.95rem;
+}
+
+/* 카카오 로그인 버튼 */
+.kakao-btn {
+  background-color: #FEE500 !important;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.google-btn{
+  background-color: #ffffff !important;
+  border: 1px solid black !important;
+  border-radius: 8px;
+  border-color: #333;
+  padding: 12px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+}
+
+.google-btn p{
+  color: black;
+}

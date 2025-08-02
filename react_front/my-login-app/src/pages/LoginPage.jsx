@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode';
 import { setUserFromToken } from '../store/userSlice';
 import { useDispatch } from 'react-redux';
 
@@ -12,6 +11,14 @@ function LoginPage() {
     const [password, setPassword] = useState('');
 
     const navigate = useNavigate();
+
+    const KAKAO_REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API;
+    const KAKAO_REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
+    const KAKAO_AUTH_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+
+    const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    const GOOGLE_REDIRECT_URI = import.meta.env.VITE_GOOGLE_REDIRECT_URI;
+    const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=openid%20email%20profile`;
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -27,6 +34,14 @@ function LoginPage() {
         } catch(err) {
             alert("로그인 실패 : " + (err.response?.data || err.message));
         }
+    }
+
+    const handleKakaoLogin = () => {
+        window.location.href = KAKAO_AUTH_LOGIN_URL;
+    }
+
+    const handleGoogleLogin = () => {
+        window.location.href = GOOGLE_AUTH_URL;
     }
 
     return (
@@ -49,6 +64,17 @@ function LoginPage() {
                 />
                 <button type='submit'>로그인</button>
             </form>
+
+            <div className='social-login'>
+                <button onClick={handleKakaoLogin} className='kakao-btn'>
+                    <p>kakao login</p>
+                </button>
+            </div>
+            <div className='social-login'>
+                <button onClick={handleGoogleLogin} className='google-btn'>
+                    <p>google login</p>
+                </button>
+            </div>
         </div>
     )
 
